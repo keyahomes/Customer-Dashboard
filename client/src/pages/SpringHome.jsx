@@ -616,7 +616,7 @@ function SpringHome() {
                 <div>Phone: +91 8040931141</div>
                 <div>E-Mail: springcrm@keyahomes.in</div>
                 <br />
-                <span>© 2025 <strong>Keya Homes Pvt Ltd</strong> | All rights reserved.</span>
+                <span>© 2026 <strong>Keya Homes Pvt Ltd</strong> | All rights reserved.</span>
             </footer>
 
 
