@@ -360,24 +360,7 @@ function TufHome() {
                       <p style={{ marginLeft: "10px", marginTop: "1px", color: "#0c4338" }}>
                         All your documents are available in the drive link below:
                       </p>
-                      {/* <div style={styles.docList}> */}
-
-                      {/* <div style={styles.docRow}>
-                          <div>01.</div>
-                          AGREEMENT 
-                        </div>
-                        <div style={styles.docRow}>
-                          <div>02.</div>
-                          LATEST MONEY RECEIPT
-                        </div>
-                        <div style={styles.docRow}>
-                          <div>03.</div>
-                          LATEST DEMAND NOTE
-                        </div>
-                        <div style={styles.docRow}>
-                          <div>04.</div>
-                          OTHERS
-                        </div> */}
+                      
 
                       <div style={styles.docRow}>
                         <ul style={styles.docList}>
