@@ -4,6 +4,7 @@ import TLTlogo from "../assets/TLTLogo.png";
 import { getDatabase, ref, update, onValue, get } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
+
 function isValidUrl(str) {
     try {
         new URL(str);
@@ -12,6 +13,7 @@ function isValidUrl(str) {
         return false;
     }
 }
+
 
 function TltHome() {
     if (!document.getElementById("scrollStyles")) {
@@ -39,6 +41,8 @@ function TltHome() {
     const [showLogout, setShowLogout] = useState(false);
     const [showKeyaUpdate, setShowKeyaUpdate] = useState(false);
     const [showProjectUpdate, setShowProjectUpdate] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
 
 
 
@@ -60,6 +64,8 @@ function TltHome() {
     // CRM Help Ticket - form submit, these response will go to google sheet
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        setIsSubmitting(true); // start spinner
 
         const payload = {
             sheetName: "TLT",
@@ -84,6 +90,8 @@ function TltHome() {
         } catch (err) {
             console.error("Error submitting form:", err);
             alert("Error submitting form");
+        } finally {
+            setIsSubmitting(false); //stop spinner
         }
     };
 
@@ -256,6 +264,17 @@ function TltHome() {
                 .input:hover {
                     backgroundColor: #19a9cf;
                 },
+
+                @keyframes spin {
+                    to {
+                        transform: rotate(360deg);
+                    }
+                }
+
+                button:disabled {
+                    opacity: 0.7;
+                    cursor: not-allowed;
+                }
 
                 /* Responsive tweak so the 12-col grid stacks on small screens */
                 @media (max-width: 1024px) {
@@ -626,7 +645,8 @@ function TltHome() {
                         <div style={styles.modelOverlay}>
                             <div style={styles.modalBox}>
                                 <button style={styles.closeBtn}
-                                    onClick={() => setShowForm(false)}>
+                                    onClick={() => setShowForm(false)}
+                                    disabled={isSubmitting}>
                                     X
                                 </button>
 
@@ -661,7 +681,16 @@ function TltHome() {
                                         style={styles.textarea}
                                     />
 
-                                    <button type="submit" style={styles.submitBtn}>SUBMIT</button>
+                                    <button type="submit" style={styles.submitBtn} disabled={isSubmitting}>
+                                        {isSubmitting ? (
+                                            <>
+                                                <span style={styles.spinner}></span>
+                                                Submitting...
+                                            </>
+                                        ) : (
+                                            "Submit"
+                                        )}
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -1158,6 +1187,17 @@ const styles = {
         transition: "transform 0.3s ease",
         fontSize: "17px",
         paddingLeft: "25px",
+    },
+
+    spinner: {
+        width: "16px",
+        height: "16px",
+        border: "2px solid #fff",
+        borderTop: "2px solid transparent",
+        borderRadius: "50%",
+        display: "inline-block",
+        marginRight: "8px",
+        animation: "spin 0.8s linear infinite",
     },
 
     footer: {

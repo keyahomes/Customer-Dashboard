@@ -41,6 +41,8 @@ function TufHome() {
   const [showLogout, setShowLogout] = useState(false);
   const [showKeyaUpdate, setShowKeyaUpdate] = useState(false);
   const [showProjectUpdate, setShowProjectUpdate] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
 
 
 
@@ -62,6 +64,8 @@ function TufHome() {
   // CRM help ticket - form submit, these response will go to google sheet
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setIsSubmitting(true); // start spinner
 
     const payload = {
       sheetName: "TUF",
@@ -86,6 +90,8 @@ function TufHome() {
     } catch (err) {
       console.error("Error submitting form:", err);
       alert("Error submitting form");
+    } finally {
+      setIsSubmitting(false); //stop spinner
     }
   };
 
@@ -258,6 +264,17 @@ function TufHome() {
           backgroundColor: #c7aa58;
         },
 
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        button:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
+
         /* Responsive tweak so the 12-col grid stacks on small screens */
         @media (max-width: 1024px) {
           .tuf-grid {
@@ -360,7 +377,7 @@ function TufHome() {
                       <p style={{ marginLeft: "10px", marginTop: "1px", color: "#0c4338" }}>
                         All your documents are available in the drive link below:
                       </p>
-                      
+
 
                       <div style={styles.docRow}>
                         <ul style={styles.docList}>
@@ -444,7 +461,7 @@ function TufHome() {
                         <div style={styles.docRow}>
                           <img src="https://img.icons8.com/?size=100&id=1395&format=png&color=c8a05c" width="18" />
                           <a href={userData.Legal_Document} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "#0c4338" }}>
-                            LEGAL DOCUMENT SET - PROJECT 
+                            LEGAL DOCUMENT SET - PROJECT
                           </a>
                         </div>
 
@@ -587,7 +604,8 @@ function TufHome() {
             <div style={styles.modelOverlay}>
               <div style={styles.modalBox}>
                 <button style={styles.closeBtn}
-                  onClick={() => setShowForm(false)}>
+                  onClick={() => setShowForm(false)}
+                  disabled={isSubmitting}>
                   X
                 </button>
 
@@ -622,7 +640,16 @@ function TufHome() {
                     style={styles.textarea}
                   />
 
-                  <button type="submit" style={styles.submitBtn}>SUBMIT</button>
+                  <button type="submit" style={styles.submitBtn} disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <>
+                        <span style={styles.spinner}></span>
+                        Submitting...
+                      </>
+                    ) : (
+                      "Submit"
+                    )}
+                  </button>
                 </form>
               </div>
             </div>
@@ -691,6 +718,7 @@ function TufHome() {
 }
 
 const styles = {
+
   header: {
     // no longer used; header replaced by .app-header (kept here to avoid touching your obj)
     position: "fixed",
@@ -1068,7 +1096,7 @@ const styles = {
     borderRadius: "20px",
     transition: "transform 0.3s ease",
     fontSize: "17px",
-    
+
   },
 
   smallCard1: {
@@ -1087,7 +1115,18 @@ const styles = {
     transition: "transform 0.3s ease",
     fontSize: "17px",
     paddingLeft: "25px",
-    
+
+  },
+
+  spinner: {
+    width: "16px",
+    height: "16px",
+    border: "2px solid #fff",
+    borderTop: "2px solid transparent",
+    borderRadius: "50%",
+    display: "inline-block",
+    marginRight: "8px",
+    animation: "spin 0.8s linear infinite",
   },
 
   footer: {
