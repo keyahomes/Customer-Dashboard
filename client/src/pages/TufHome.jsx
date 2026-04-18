@@ -24,7 +24,7 @@ function TufHome() {
         0% { transform: translateX(100%); }
         100% { transform: translateX(-100%); }
       }
-      .scroll-text { animation: scroll-left 20s linear infinite; }
+      .scroll-text { animation: scroll-left 40s linear infinite; }
       .scroll-text:hover { animation-play-state: paused !important; cursor: pointer; }
     `;
     document.head.appendChild(styleTag);
@@ -207,6 +207,7 @@ function TufHome() {
         .app-header .center-alert {
           flex: 1;
           display: flex;
+          max-width: 75%; 
           align-items: center;
           justify-content: center;
           padding: 0 16px;
@@ -738,7 +739,7 @@ const styles = {
 
   alertContainer: {
     overflow: "hidden",
-    width: "60%",
+    width: "50%",
     border: "2px solid #c8a05c",
     borderRadius: "30px",
     padding: "10px 0",
