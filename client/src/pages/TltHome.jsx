@@ -406,8 +406,8 @@ function TltHome() {
 
                                                 <div style={styles.docRow}>
                                                     <img src="https://img.icons8.com/?size=100&id=1395&format=png&color=122f5a" width="18" />
-                                                    <a href={userData.Apartment_Viewing_Slot_Booking} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "#122f5a" }}>
-                                                        APARTMENT VIEWING SLOT BOOKING
+                                                    <a href={userData.Reg_FAQ} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "#122f5a" }}>
+                                                        REGISTRATION & HANDOVER FAQs
                                                     </a>
                                                 </div>
                                             </div>
